@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
@@ -28,7 +30,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     address = models.TextField(blank=True)
-    birthday = models.DateField(default=timezone.now)
+    birthday = models.DateField(default=datetime.date.today)
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255, blank=True)
     phone = models.CharField(max_length=20, blank=True)

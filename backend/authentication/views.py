@@ -24,13 +24,13 @@ class LoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        username = request.data.get('username')
+        email = request.data.get('email')
         password = request.data.get('password')
 
-        if username is None or password is None:
-            return JsonResponse({'detail': 'Please provide username and password.'}, status=400)
+        if email is None or password is None:
+            return JsonResponse({'detail': 'Please provide email and password.'}, status=400)
 
-        user = authenticate(username=username, password=password)
+        user = authenticate(username=email, password=password)
 
         if user is None:
             return JsonResponse({'detail': 'Invalid credentials.'}, status=400)
@@ -71,4 +71,4 @@ class WhoAmIView(APIView):
 
     @staticmethod
     def get(request, format=None):
-        return JsonResponse({'username': request.user.username})
+        return JsonResponse({'username': request.user.email})
